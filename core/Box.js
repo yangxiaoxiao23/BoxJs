@@ -1,8 +1,16 @@
-/**
+/**Box.js
  * Created by YHB on 2014/9/6.
  */
 
-var Box = new Object();
+if(typeof Object.create !== "function"){
+    Object.create = function(o){
+        function F(){};
+        F.prototype = o;
+        return new F();
+    }
+}
+
+var Box = Object.create({});
 Box.index = 0;
 
 /**
@@ -25,7 +33,6 @@ Box.copy = function(cfg1, cfg2){
     }
     return cfg1;
 }
-
 
 Box.copy(Box, {
 
@@ -75,7 +82,7 @@ Box.copy(Box, {
     },
 
     /**
-     * @method isEmpty 判断是否是null, underfined, ''
+     * @method isEmpty 判断是否是null, undefined, ''
      * @param {object} object
      * @returns {boolean}
      */
@@ -94,7 +101,7 @@ Box.copy(Box, {
 });
 
 
-Box.copy(this, {
+Box.copy(Box, {
     /**
      * @method each 遍历所给参数
      * @param object
@@ -127,7 +134,7 @@ Box.onReady = function(callback){
         var bodyEl = document.getElementsByTagName("");
             var pageAllScript = document.scripts;
             Box.each(pageAllScript, function(index, value, object){
-                if(value.src.indexOf('/core/Box.js')){
+                if(value.src && value.src.indexOf('/core/Box.js')){
 
                 }
             });
@@ -144,19 +151,71 @@ Box.copy(Box, {
     /**
      * @method require 通过require加载传入的path路径
      * @param path
+     * @param fn
      */
-    require: function(path) {
+    require: function(path, fn) {
         var bodyEl = document.getElementsByTagName('body')[0];
         if (Box.isArray(path)) {
             Box.each(path, function(index, value, obj){
-                var scriptEl = document.createElement('script');
-                scriptEl.src = value;
-                bodyEl.appendChild(scriptEl);
+                this.engine(value);
             })
         } else {
-            var scriptEl = document.createElement('script');
-            scriptEl.src = path;
-            bodyEl.appendChild(scriptEl);
+            this.engine(path);
+        }
+        if(Box.isFunction(fn)){
+            fn();
+        }
+    },
+
+    engine: function(filePath){
+        var scriptEl = document.createElement('script');
+        scriptEl.src = filePath;
+        bodyEl.appendChild(scriptEl);
+    }
+});
+
+Box.copy(Box, {
+
+    /**
+     * @method extend 类上的属性扩展,这里支持回调函数extended
+     * @param o
+     */
+    extend: function(o){
+        var extended = o.extended; //回调
+        Box.copy(Box, o);
+        if(extended){
+            extended(this);
+        }
+    },
+
+    /**
+     * @method include 实例的属性扩展,这里支持回调函数extended
+     * @param o
+     */
+    include: function(o){
+        var included = o.included;//回调
+        Box.copy(this.prototype, o);
+        if(included){
+            included(this);
+        }
+    }
+});
+
+Box.copy(Box, {
+    /**
+     * @method package 创建包解决
+     * @param packageNs
+     */
+    package: function(packageNs){
+        var folders = packageNs.split('.');
+        var folder = null;
+        var ns = null;
+        while((folder = folders.unshift())) {
+            if(typeof ns === 'undefined'){
+                ns = Object.create({});
+            } else if(typeof ns[folder] === 'undefined'){
+                ns[folder] = Object.create({});
+            }
         }
     }
 });
