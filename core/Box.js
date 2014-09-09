@@ -34,6 +34,21 @@ Box.copy = function(cfg1, cfg2){
     return cfg1;
 }
 
+
+Box.copy(Box, {
+    /**
+     * @method isType 利用闭包生成判断类型的函数
+     * @param type
+     * @returns {Function}
+     */
+    isType: function(type){
+        return function(obj){
+            return toString.call(obj) =='[object ' + type + ']';
+        }
+    }
+});
+
+
 Box.copy(Box, {
 
     /**
@@ -41,36 +56,42 @@ Box.copy(Box, {
      * @param {object} object
      * @returns {boolean}
      */
-    isFunction: function(object){
-        return typeof object === 'function';
-    },
+    isFunction: Box.isType('Function'),
 
     /**
      * @method isObject 判断是否是一个对象
      * @param {object} object
      * @returns {boolean}
      */
-    isObject: function(object){
-        return typeof object === 'object';
-    },
+    isObject: Box.isType('Object'),
 
     /**
      * @method isNumber 判断是否是一个数字
      * @param {object} object
      * @returns {boolean}
      */
-    isNumber: function(object){
-        return typeof object === 'number';
-    },
+    isNumber: Box.isType('Number'),
 
     /**
      * @method isString 判断是否是字符串
      * @param {object} object
      * @returns {boolean}
      */
-    isString: function(object){
-        return typeof object === 'string';
-    },
+    isString: Box.isType('String'),
+
+    /**
+     * @method isArray 判断是否是一个数组
+     * @param {object} object
+     * @returns {boolean}
+     */
+    isArray: Box.isType('Array'),
+
+    /**
+     * @method isBoolean 判断是否是一个布尔类型
+     * @param {object} object
+     * @returns {boolean}
+     */
+    isBoolean: Box.isType('Boolean'),
 
     /**
      * @method isUndefined 判断是否是undefined
@@ -82,21 +103,24 @@ Box.copy(Box, {
     },
 
     /**
+     * @method isNull 判断是否是undefined
+     * @param {object} object
+     * @returns {boolean}
+     */
+    isNull: function(obj) {
+        if (!obj && typeof(obj) != "undefined" && obj != 0) {
+            return true;
+        }
+        return false;
+    },
+
+    /**
      * @method isEmpty 判断是否是null, undefined, ''
      * @param {object} object
      * @returns {boolean}
      */
     isEmpty: function(object){
         return !!object;
-    },
-
-    /**
-     * @method isArray 判断是否是一个数组
-     * @param {object} object
-     * @returns {boolean}
-     */
-    isArray: function(object){
-        return object instanceof Array;
     }
 });
 

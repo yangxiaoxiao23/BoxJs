@@ -24,7 +24,7 @@ Box.include(Box.Event, {
         }
     },
 
-    listen: function(eventName, fn, scope, single){
+    addListen: function(eventName, fn, scope, single){
         var currentEventStack = Box.Event.eventHash.eventName;
         if(typeof currentEventStack === 'undefined'){
             currentEventStack = this.doAddEvent(eventName);
@@ -35,6 +35,10 @@ Box.include(Box.Event, {
             scope: scope,
             single: !!single
         });
+    },
+
+    one: function(eventName, fn, scope){
+        this.addListen(eventName, fn, scope, true);
     },
 
     fireEvent: function(eventName, scope, param1, param2){
@@ -51,13 +55,13 @@ Box.include(Box.Event, {
             Box.each(currentEventStack, function(index, e, es){
                 e.fn.apply(scope || e.scope || window, params);
                 if(e.single){
-                    this.un(eventName, e.fn);
+                    this.removeListen(eventName, e.fn);
                 }
             });
         }
     },
 
-    un: function(eventName, fn){
+    removeListen: function(eventName, fn){
         var currentEventStack = Box.Event.eventHash.eventName;
         if(typeof currentEventStack === 'undefined'){
             throw new Error('not found ' + eventName);
@@ -68,7 +72,13 @@ Box.include(Box.Event, {
                }
             });
         }
+    },
+
+    removeAllListen: function(){
+        delete Box.Event.eventHash.eventName;
     }
 });
 
-Box.Event.on = Box.Event.listen;
+Box.Event.on = Box.Event.addListen;
+Box.Event.un = Box.Event.removeListen;
+Box.Event.unAll = Box.Event.removeAllListen;
