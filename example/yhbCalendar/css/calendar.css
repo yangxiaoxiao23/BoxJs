@@ -1,0 +1,63 @@
+/*calendar basic styles*/
+#calendar{position:absolute;top:300px;left:300px;border:1px solid #6981BE;background-color:#FFFFFF;font-size:12px;z-index:20;display:none;font-family:"\5FAE\8F6F\96C5\9ED1","\5b8b\4f53",sans-serif;}
+
+.calendar_left{float:left;}
+.calendar_right{float:right;}
+
+.calendar-head{width:218px;height:25px;background:#3562b9 url(/tpl/www/js/yhbCalendar/imgs/cal_icon.gif) repeat-x top;color:#FFF;font-size:12px;line-height:25px;position:relative;text-align:center;z-index:9;}
+#calendar-prev{display:block;width:25px;height:25px;position:absolute;top:0;left:0;background:url(/tpl/www/js/yhbCalendar/imgs/cal_icon.gif) no-repeat 0 -25px;}
+#calendar .calendar-prev-hover{background-position:0 -50px;}
+#calendar-next{display:block;width:25px;height:25px;position:absolute;top:0;right:0;background:url(/tpl/www/js/yhbCalendar/imgs/cal_icon.gif) no-repeat -75px -25px;}
+#calendar .calendar-next-hover{background-position:-75px -50px;}
+.calendar-head .calendar-disabled{display:none !important;}
+.calendar-year,.calendar-month{cursor:pointer;position:absolute;top:0;padding-right:12px;background:url(/tpl/www/js/yhbCalendar/imgs/cal_icon.gif) no-repeat right -124px;font-weight:bold;}
+.calendar-month-more{position:static;background:none;}
+.calendar-title{display:block;width:110px;height:25px;line-height:25px;margin:0 auto;position:relative;}
+.calendar-year{left:0;}
+.calendar-month{right:0;}
+
+.calendar-month-bg {background:url(/tpl/www/js/yhbCalendar/imgs/calendar_bg.gif) no-repeat}
+
+.calendar-body{width:217px;height:143px;position:relative;overflow:hidden;z-index:8;}
+.calendar-weeks{height:22px;background-color:#E4EFFA;color:#21437D;overflow:hidden;border-bottom:1px solid #EAEAEA;}
+.calendar-weeks span{float:left;width:31px;text-align:center;line-height:22px;}
+.calendar-days{width:217px;overflow:hidden;font-family:Arial,sans-serif;}
+.calendar-days span{float:left;width:30px;height:19px;line-height:19px;border-right:1px solid #EAEAEA;border-bottom:1px solid #EAEAEA;text-align:center;}
+.calendar-days span.calendar-normal{font-weight:bold;cursor:pointer;color:#000;b1ackground:#ECFCE5 url(/tpl/www/js/yhbCalendar/imgs/cal_icon.gif) repeat-x 0 -80px;}
+.calendar-days span.calendar-today{color:#4ca9df;border: 1px solid #FF0000;width:29px;height:17px;_overflow:hidden;}
+.calendar-days span.calendar-weekend{color:#ef9c68;}
+.calendar-days span.calendar-disabled,
+.calendar-days span.calendar-outofdate{cursor:text;color:#CCC;font-weight:normal;background:none;}
+.calendar-days span.calendar-specific{background:url(/tpl/www/js/yhbCalendar/imgs/cal_icon.gif) no-repeat right -158px;}
+.calendar-days span.calendar-hover{background:#507CD1 url(/tpl/www/js/yhbCalendar/imgs/cal_icon.gif) repeat-x 0 -100px;color:#FFF;}
+.calendar-days span.calendar-selected{background:#507CD1 url(/tpl/www/js/yhbCalendar/imgs/cal_icon.gif) repeat-x 0 -100px;color:#FFF;}
+.calendar-days span.calendar-soldout{text-decoration:line-through;color:#F00;cursor:text;}
+/*year and month select*/
+.calendar-years,
+.calendar-months{width:207px;padding:0 5px;height:142px;overflow:auto;position:absolute;top:-150px;left:0;z-index:9;background-color:#FFF;display:none;}
+.calendar-years a{float:left;width:34px;margin-top:4px;color:#000;_display:inline;text-decoration:none;padding:2px;text-align:center;border-radius:3px;}
+.calendar-months a{float:left;width:60px;padding:2px;margin-top:10px;color:#000;_display:inline;text-decoration:none;text-align:center;border-radius:3px;}
+.calendar-years a:hover,
+.calendar-months a:hover{background:#3E6FCA url(/tpl/www/js/yhbCalendar/imgs/cal_icon.gif) repeat-x 0 -100px;color:#FFF;}
+
+.calendar-foot{width:208px;height:22px;line-height:22px;background-color:#ECF3FB;padding:0 5px;position:relative;text-align:center;}
+#calendar-today{position:absolute;top:0;left:5px;cursor:pointer;color:#333;}
+#calendar-close{position:absolute;top:0;right:5px;cursor:pointer;color:#333;}
+.calendar-tip{display:inline-block;width:208px;color:#F00;overflow:hidden;}
+.calendar-foot .calendar-today-mouseon{color:#2c54a1;}
+
+#calendar .calendar-prev-hover{}
+#calendar .calendar-next-hover{}
+#calendar .calendar-year-hover{}
+#calendar .calendar-month-hover{}
+#calendar .calendar-today-hover{}
+#calendar .calendar-close-hover{}
+
+/*lang styles*/
+.calendar-en .calendar-year{left:auto;right:0;}
+.calendar-en .calendar-month{right:auto;left:0;}
+.calendar-zh .calendar-weeks,
+
+.calendar-zh .calendar-foot{font-family:"\5b8b\4f53",sans-serif;}
+.calendar-en .calendar-months a{width:70px;padding:2px 15px;text-align:left;margin-top:2px;}
+.calendar-en .calendar-title{width:130px;}
